@@ -20,6 +20,7 @@
                             </div>
                             <a href="#" class="post-link">
                                 <h2 class="card-title">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.excerpt }}</p>
                             </a>
 
                             <hr />
@@ -46,7 +47,7 @@
 
             {% for pg in page_obj.paginator.page_range %}
                 {% if page_obj.number == pg %}
-                <li><a href="?page={{pg}}" class="page-link">{{pg}}</a></li>
+                <li><a href="?page={{pg}}" class="page-link page-num">{{pg}}</a></li>
                 {% else %}
                 <li><a href="?page={{pg}}" class="page-link">{{pg}}</a></li>
                 {% endif %}
@@ -64,5 +65,5 @@
 {% endblock %}
 
 {% block copyright %}
-    &copy; {% now 'Y' %}, Omer Ahmed <br> All rights reserved
+    &copy; {% now 'Y' %} Omer Ahmed <br> All rights reserved
 {% endblock %}

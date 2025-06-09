@@ -40,6 +40,18 @@
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; BACK</a></li>
+            {% endif %}
+
+            {% for pg in page_obj.paginator.page_range %}
+                {% if page_obj.number == pg %}
+                <li><a href="?page={{pg}}" class="page-link">{{pg}}</a></li>
+                {% else %}
+                <li><a href="?page={{pg}}" class="page-link">{{pg}}</a></li>
+                {% endif %}
+            {% endfor %}
+
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
             {% endif %}
@@ -49,4 +61,8 @@
 </div>
 
 <!-- index.html content ends here -->
+{% endblock %}
+
+{% block copyright %}
+    &copy; {% now 'Y' %}, Omer Ahmed <br> All rights reserved
 {% endblock %}

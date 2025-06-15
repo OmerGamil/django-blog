@@ -7,9 +7,9 @@
     <div class="row">
         <div class="col-12 col-md-4 text-center">
                 {% if "placeholder" in about.profile_image.url %}
-                <img class="scale" src="{% static 'images/nobody.jpg' %}" alt="placeholder image" width="75%">
+                <img class="scale pofile-image" src="{% static 'images/nobody.jpg' %}" alt="placeholder image">
                 {% else %}
-                <img class="scale" src=" {{ about.profile_image.url }}" alt="{{ about.title }}" width="75%">
+                <img class="scale pofile-image" src=" {{ about.profile_image.url }}" alt="{{ about.title }}">
                 {% endif %}
         </div>
         <div class="col-12 col-md-8">

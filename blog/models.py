@@ -6,6 +6,21 @@ STATUS = ((0, "Draft"), (1, "Published"))
 
 # Create your models here.
 class Post(models.Model):
+    """
+    Represents a blog post written by a user.
+
+    Fields:
+        title (str): The title of the post.
+        slug (str): URL-friendly version of the title.
+        author (User): ForeignKey to the User who wrote the post.
+        featured_image (CloudinaryField): Optional image for the post.
+        content (str): The full content of the post.
+        created_on (datetime): Timestamp when the post was created.
+        status (int): Indicates if post is a draft (0) or published (1).
+        excerpt (str): Optional summary of the post.
+        updated_on (datetime): Timestamp of the last update.
+    """
+
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
@@ -24,6 +39,17 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Represents a comment made by a user on a blog post.
+
+    Fields:
+        post (Post): ForeignKey linking to the related blog post.
+        author (User): ForeignKey to the user who made the comment.
+        body (str): The text content of the comment.
+        approved (bool): Indicates if the comment has been approved by a moderator.
+        created_on (datetime): Timestamp when the comment was created.
+    """
+    
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commenter")
     body = models.TextField()

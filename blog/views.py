@@ -7,6 +7,15 @@ from .forms import CommentForm
 
 # Create your views here.
 class PostList(generic.ListView):
+    """
+    Display a paginated list of published blog posts.
+
+    Attributes:
+        queryset: QuerySet of posts with status=1 (published).
+        template_name: Template used to render the blog index page.
+        paginate_by: Number of posts to show per page.
+    """
+
     queryset = Post.objects.filter(status=1)
     template_name = "blog/index.html"
     paginate_by = 6
@@ -55,8 +64,18 @@ def post_detail(request, slug):
 
 def comment_edit(request, slug, comment_id):
     """
-    view to edit comments
+    Handle editing of an existing comment.
+
+    POST:
+        - Validates the form input.
+        - Ensures the comment belongs to the current user.
+        - Sets the comment as unapproved (awaiting re-approval).
+        - Displays success or error message.
+
+    Redirects:
+        back to the post detail page.
     """
+
     if request.method == "POST":
 
         queryset = Post.objects.filter(status=1)
@@ -77,8 +96,17 @@ def comment_edit(request, slug, comment_id):
 
 def comment_delete(request, slug, comment_id):
     """
-    view to delete comment
+    Handle deletion of a comment.
+
+    GET or POST:
+        - Checks if the current user is the author.
+        - Deletes the comment if permission is granted.
+        - Displays a corresponding success or error message.
+
+    Redirects:
+        back to the post detail page.
     """
+    
     queryset = Post.objects.filter(status=1)
     post = get_object_or_404(queryset, slug=slug)
     comment = get_object_or_404(Comment, pk=comment_id)
